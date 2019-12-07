@@ -1,0 +1,38 @@
+{% extends 'MainBase.html' %}
+{% load static %}
+
+{% block head %}
+    <title>LMS</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 pt-5 ml-5 justify-content-around mx-auto">
+        <h1 class="display-2 text-center">Choose a Course</h1>
+        <form method="POST">
+        {% csrf_token %}
+        {% for course in courseList %}
+            <div class="d-inline-block col-3 mx-3">
+                <div class="card d-inline-block my-5">
+                    <img class="card-img-top" src="http://placehold.it/250x150" alt="Card image cap">
+                    <div class="card-block p-2">
+                        <input type="radio" name="radio" id="radio5" value="{{ course.0 }}"/>
+                        <label for="radio5">{{ course.1 }}</label>
+                        <p class="card-text">Course Id : {{ course.0 }}</p>
+                        <p class="card-text">Course Credits : {{ course.2 }}</p>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+
+
+        <div class="row m-5">
+            <button type="submit" class="btn btn-success mx-auto">Continue</button>
+        </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

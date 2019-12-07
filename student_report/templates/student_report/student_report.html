@@ -1,0 +1,190 @@
+{% extends 'student_report/base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Student Report</title>
+{% endblock %}
+
+{% block content %}
+    <div class="col-4 text-left mb-4">
+    <form>
+        <a onclick="window.print()"><i class="fa fa-download fa-2x text-left" aria-hidden="true" data-toggle="tooltip"
+           title="Download Report"></i></a>
+    </form>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-cube text-danger icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Exam Rank</p>
+                            <div class="fluid-container">
+                                <h3 class="d-inline-block font-weight-medium text-right mb-0" style="font-family: 'Montserrat', sans-serif;">{{ ranks.1 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-receipt text-warning icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Lab Rank</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0" style="font-family: 'Montserrat', sans-serif;">{{ ranks.2 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-poll-box text-success icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Assignment Rank</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0" style="font-family: 'Montserrat', sans-serif;">{{ ranks.3 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-account-location text-info icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Other Rank</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0" style="font-family: 'Montserrat', sans-serif;">{{ ranks.4 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9 grid-margin stretch-card">
+            <div class="col-md-12 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="myChart" height="190"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-5">Performance History</h2>
+                    <div class="wrapper d-flex justify-content-between">
+                        <div class="side-left">
+                            <p class="mb-2">Class Rank</p>
+                            <p class="display-3 mb-4 font-weight-light">{{ ranks.0 }}</p>
+                        </div>
+                      </div>
+                    <div class="wrapper d-flex justify-content-between">
+                        <div class="side-left">
+                            <p class="mb-2">Best performance</p>
+                            <p class="display-3 mb-5 font-weight-light">{{ Marks.1 }}</p>
+                        </div>
+                        <div class="side-right">
+                      <small class="text-muted">{{ Marks.0 }}</small>
+                    </div>
+                    </div>
+                    <div class="wrapper d-flex justify-content-between">
+                        <div class="side-left">
+                            <p class="mb-2">Worst performance</p>
+                            <p class="display-3 mb-5 font-weight-light">{{ Marks.3 }}</p>
+                        </div>
+                        <div class="side-right">
+                      <small class="text-muted">{{ Marks.2 }}</small>
+                    </div>
+                    </div>
+{#                    <div class="wrapper">#}
+{#                        <div class="d-flex justify-content-between">#}
+{#                            <p class="mb-2">Sales</p>#}
+{#                            <p class="mb-2 text-primary">88%</p>#}
+{#                        </div>#}
+{#                        <div class="progress">#}
+{#                            <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated"#}
+{#                                 role="progressbar" style="width: 88%" aria-valuenow="88"#}
+{#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="wrapper mt-4">#}
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Overall</p>
+                            <p class="mb-2 text-success display-4 font-weight-bold">{{ Marks.4 }}%</p>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                                 role="progressbar" style="width: {{ Marks.4 }}%" aria-valuenow="56"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for quiz in quizzes %}"{{ quiz.0 }}",{% endfor %}],
+                datasets: [{
+                    label: "{{ student }}",
+                    data: [{% for quiz in quizzes %}{{ quiz.1 }}, {% endfor %}],
+                    backgroundColor: "rgba(153,255,51,0.6)"
+                }, {
+                    label: 'Average',
+                    data: [{% for quiz in quizzes %}{{ quiz.2 }}, {% endfor %}],
+                    backgroundColor: "rgba(255,153,0,0.6)"
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 10,
+                            stepValue: 5,
+                            max: {{ Maximum }}
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+{% endblock %}
+

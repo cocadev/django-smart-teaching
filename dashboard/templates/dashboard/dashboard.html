@@ -1,0 +1,546 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Dashboard</title>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="row w-100 align-bottom">
+            <div class="col-12 text-right">
+                <label for="file-input">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="d-inline-block image-upload">
+                            <label for="file-input">
+                                <i class="fa fa-upload fa-2x" aria-hidden="true" data-toggle="tooltip"
+                                   title="Upload File"></i>
+                            </label>
+
+                            {{ form.req_file }}
+                        </div>
+                        <button type="submit" class="d-inline-block ml-5 btn btn-primary align-top">Generate Result
+                        </button>
+                    </form>
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="wildcards row mt-4 mb-4">
+        <div class="mx-auto rounded well-container p-2 w-25 bg-light">
+            <div class="well">
+                <div class="row">
+                    <h6 class="text-black col-8 font-weight-bold stats-heading">
+                        <!--<span class="label label-danger pull-right">- 9%</span>--> COURSE
+                        DIFFICULTY</h6>
+                    <img class="col-4" src="{% static "dashboard/images/test.svg" %}" alt="test" width="32"
+                         height="32"/>
+                </div>
+
+                {% if courseoverview.0 == "LOW" %}
+                    <h1><span class="badge badge-success mt-4">{{ courseoverview.0 }}</span></h1>
+
+                {% elif courseoverview.0 == 'MODERATE' %}
+                    <h1><span class="badge badge-warning mt-4">{{ courseoverview.0 }}</span></h1>
+
+                {% else %}
+                    <h1><span class="badge badge-danger mt-4">{{ courseoverview.0 }}</span></h1>
+
+                {% endif %}
+                {#                <p class="text-black p-2 pt-3 display-4 text-right">{{ courseoverview.0 }}</p>#}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12 col-md-3 col-xs-12 mx-auto rounded well-container p-2 w-25 bg-light">
+            <div class="well">
+                <div class="row">
+                    <h6 class="text-black col-8 font-weight-bold stats-heading">
+                        <!--<span class="label label-danger pull-right">- 9%</span>--> CHEATING<br/>
+                        RISK</h6>
+
+                    <img class="col-4" src="{% static "dashboard/images/risk.svg" %}" alt="test" width="32"
+                         height="32"/>
+                </div>
+                {% if courseoverview.1 == "LOW" %}
+                    <h1><span class="badge badge-success mt-4">{{ courseoverview.1 }}</span></h1>
+
+                {% elif courseoverview.1 == 'MODERATE' %}
+                    <h1><span class="badge badge-warning mt-4">{{ courseoverview.1 }}</span></h1>
+
+                {% else %}
+                    <h1><span class="badge badge-danger mt-4">{{ courseoverview.1 }}</span></h1>
+
+                {% endif %}
+            </div>
+        </div>
+        {#        <div class="mx-auto rounded well-container p-2 w-25 wildcard-color">#}
+        {#            <div class="well">#}
+        {#                <div class="row">#}
+        {#                    <h5 class="text-black col-8"><!--<span class="label label-danger pull-right">- 9%</span>--> OVERALL#}
+        {#                        RISK</h5>#}
+        {#                    <img class="col-4" src="{% static "dashboard/images/risk.svg" %}" alt="test" width="32"#}
+        {#                         height="32"/>#}
+        {#                </div>#}
+        {#                {% if courseoverview.1 == "Low" %}#}
+        {#                    <h1><span class="badge mt-4 mx-5">{{ courseoverview.1 }}</span></h1>#}
+        {##}
+        {#                {% elif courseoverview.1 == 'Moderate' %}#}
+        {#                    <h1><span class="badge badge-success mt-4">{{ courseoverview.1 }}</span></h1>#}
+        {##}
+        {#                {% else %}#}
+        {#                    <h1><span class="badge badge-primary mt-4">{{ courseoverview.1 }}</span></h1>#}
+        {##}
+        {#                {% endif %}#}
+        {#            </div>#}
+        {#        </div>#}
+        <div class="mx-auto rounded well-container p-2 w-25 bg-light">
+            <div class="well">
+                <div class="row">
+                    <h6 class="text-black col-8 font-weight-bold stats-heading">
+                        <!--<span class="label label-danger pull-right">- 9%</span>--> COURSE<br/>AVERAGE</h6>
+                    <img class="col-4" src="{% static "dashboard/images/graph.svg" %}" alt="test" width="32"
+                         height="32"/>
+                </div>
+                <h1><span class="badge badge-primary mt-4">{{ courseoverview.3 }}</span></h1>
+            </div>
+        </div>
+
+    </div><!--/row-->
+
+    {#    <h2 class="display-5 my-2">Boxplot</h2>#}
+    <div class="row">
+        <div class="mx-5 mt-2" id="myDiv"></div>
+    </div>
+
+
+    <div class="row mt-5">
+        <div class="col-6 mb-5 pb-5 w-100">
+            <div class="col-12">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link btn-block text-left font-weight-bold" type="button"
+                                        data-toggle="collapse"
+                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="fas fa-search fa-2x mr-3 secondary-bg"></i>SUSPICIOUS STUDENTS
+                                    <i class="ml-1 fas fa-caret-down"></i>
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne"
+                             data-parent="#accordionExample">
+                            <div class="card-body m-2">
+
+                                {% for student in course_risk_list %}
+                                    <a href="{% url 'student_report:student_report' student.1 %}">
+                                        <div class="chip m-2 w-100">
+                                            <img
+                                                    src="{% static 'dashboard/images/st6.jpg' %}"
+                                                    alt="Person"
+                                                    width="96"
+                                                    height="96">
+                                            <b>{{ student.0 }}</b>
+
+                                            <span class="text-right badge badge-danger ml-3">{{ student.2 }}</span>
+                                            <span class="text-right badge badge-warning">{{ student.3 }}</span>
+                                        </div>
+                                    </a>
+                                    <hr class="hr-line"/>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed btn-block text-left font-weight-bold"
+                                        type="button"
+                                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                    <i class="fas fa-sliders-h secondary-bg mr-3 fa-2x"></i>COURSE QUARTILES
+                                    <i class="ml-2 fas fa-caret-down"></i>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+
+                                {% for quartile in courseoverview.4 %}
+                                    <div class="row">
+                                        <div class="w-100 pl-3"><h3 class="stats-heading display-5 text-primary">
+                                            Quartile {{ forloop.counter }}</h3></div>
+                                        <div class="row w-100 pl-3">
+                                            <div class="col-9 mt-2">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                         style="width:{{ quartile }}%"></div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="text-success ml-3 text-left font-weight-bold display-4"><span
+                                                        class="font-weight-light">+</span>{{ quartile }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card mb-5">
+                        <div class="card-header" id="headingFive">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed btn-block text-left font-weight-bold"
+                                        type="button"
+                                        data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+                                        aria-controls="collapseFive">
+                                    <img src="{% static "dashboard/images/scroll.png" %}" alt="icon" width="28"
+                                         height="28" class="mr-3"/>COURSE OVERVIEW
+                                    <i class="ml-3 fas fa-caret-down"></i>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFive" class="collapse fade" aria-labelledby="headingFive"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+
+
+                                <div class="row">
+                                    <div class="row pl-3">
+                                        <div class="col-5">
+                                            <h3
+                                                    class="stats-heading display-5 text-primary">
+                                                Course Difficulty</h3>
+                                        </div>
+                                        <div class="col-7">
+                                            <div>
+
+                                                {% if courseoverview.0 == "LOW" %}
+                                                    <h1><span
+                                                            class="badge badge-success mt-4">{{ courseoverview.0 }}</span>
+                                                    </h1>
+
+                                                {% elif courseoverview.0 == 'MODERATE' %}
+                                                    <h1><span
+                                                            class="badge badge-warning mt-4">{{ courseoverview.0 }}</span>
+                                                    </h1>
+
+                                                {% else %}
+                                                    <h1><span
+                                                            class="badge badge-danger mt-4">{{ courseoverview.0 }}</span>
+                                                    </h1>
+
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+
+
+                                <div class="row">
+                                    <div class="row pl-3">
+                                        <div class="col-5">
+                                            <h3
+                                                    class="stats-heading display-5 text-primary">
+                                                Course Risk</h3>
+                                        </div>
+                                        <div class="col-7">
+                                            <div>
+                                                {% if courseoverview.1 == "LOW" %}
+                                                    <h1><span
+                                                            class="badge badge-success mt-4">{{ courseoverview.1 }}</span>
+                                                    </h1>
+
+                                                {% elif courseoverview.1 == 'MODERATE' %}
+                                                    <h1><span
+                                                            class="badge badge-warning mt-4">{{ courseoverview.1 }}</span>
+                                                    </h1>
+
+                                                {% else %}
+                                                    <h1><span
+                                                            class="badge badge-danger mt-4">{{ courseoverview.1 }}</span>
+                                                    </h1>
+
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                <div class="row">
+                                    <div class="row pl-3">
+                                        <div class="col-5">
+                                            <h3
+                                                    class="stats-heading display-5 text-primary">
+                                                Course Average</h3>
+                                        </div>
+                                        <div class="col-7">
+                                            <div>
+                                                <h1><span class="badge badge-primary mt-4">{{ courseoverview.3 }}</span>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-6 mb-5 pb-5 w-100">
+            <div class="col-12">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link btn-block text-left font-weight-bold" type="button"
+                                        data-toggle="collapse"
+                                        data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                    <i class="fas fa-sticky-note fa-2x mr-3 secondary-bg"></i>FLAGGED FOR RE-EVALUATION
+                                    <i class="ml-2 fas fa-caret-down"></i><br/>
+                                </button>
+
+                            </h5>
+                        </div>
+
+                        <div id="collapseThree" class="collapse show fade" aria-labelledby="headingTwo"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+
+                                {% for student in exam_risk_list %}
+                                    <a href="{% url 'student_report:student_report' student.1 %}">
+                                        <div class="chip m-2 w-100">
+                                            <img
+                                                    src="{% static 'dashboard/images/st6.jpg' %}"
+                                                    alt="Person"
+                                                    width="96"
+                                                    height="96">
+                                            <b>{{ student.0 }}</b>
+                                            <br>
+                                            {{ student.1 }}
+                                            <span class="text-right badge badge-danger ml-5">{{ student.2 }}</span>
+                                            <span class="text-right badge badge-warning">{{ student.3 }}</span>
+                                        </div>
+                                    </a>
+                                    <hr class="hr-line"/>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed btn-block text-left font-weight-bold"
+                                        type="button"
+                                        data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour">
+                                    <i class="fas fa-sliders-h mr-3 fa-2x secondary-bg"></i>EXAM QUARTILES
+                                    <i class="ml-3 fas fa-caret-down"></i>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFour" class="collapse fade" aria-labelledby="headingFour"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+
+                                {% for quartile in examoverview.4 %}
+                                    <div class="row">
+                                        <div class="w-100 pl-3"><h3 class="stats-heading display-5 text-primary">
+                                            Quartile {{ forloop.counter }}</h3></div>
+                                        <div class="row w-100 pl-3">
+                                            <div class="col-9 mt-2">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                         style="width:{{ quartile }}%"></div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="text-success ml-3 text-left font-weight-bold display-4"><span
+                                                        class="font-weight-light">+</span>{{ quartile }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-5">
+                        <div class="card-header" id="headingSix">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed btn-block text-left font-weight-bold"
+                                        type="button"
+                                        data-toggle="collapse" data-target="#collapseSix" aria-expanded="false"
+                                        aria-controls="collapseSix">
+                                    <img src="{% static "dashboard/images/scroll.png" %}" alt="icon" width="28"
+                                         height="28" class="mr-3"/>EXAM OVERVIEW
+                                    <i class="ml-3 fas fa-caret-down"></i>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseSix" class="collapse fade" aria-labelledby="headingSix"
+                             data-parent="#accordionExample">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="row pl-3">
+                                        <div class="col-6">
+                                            <h3
+                                                    class="stats-heading display-5 text-primary">
+                                                Exam Difficulty</h3>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>
+                                                {% if examoverview.0 == "LOW" %}
+                                                    <h1><span
+                                                            class="badge badge-success mt-4">{{ examoverview.0 }}</span>
+                                                    </h1>
+
+                                                {% elif examoverview.0 == 'MODERATE' %}
+                                                    <h1><span
+                                                            class="badge badge-warning mt-4">{{ examoverview.0 }}</span>
+                                                    </h1>
+
+                                                {% else %}
+                                                    <h1><span
+                                                            class="badge badge-danger mt-4">{{ examoverview.0 }}</span>
+                                                    </h1>
+
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <hr/>
+
+                                <div class="row">
+                                    <div class="row pl-3">
+                                        <div class="col-5">
+                                            <h3
+                                                    class="stats-heading display-5 text-primary">
+                                                Exam Risk</h3>
+                                        </div>
+                                        <div class="col-7">
+                                            <div>
+                                                {% if examoverview.1 == "LOW" %}
+                                                    <h1><span
+                                                            class="badge badge-success mt-4">{{ examoverview.1 }}</span>
+                                                    </h1>
+
+                                                {% elif examoverview.1 == 'MODERATE' %}
+                                                    <h1><span
+                                                            class="badge badge-warning mt-4">{{ examoverview.1 }}</span>
+                                                    </h1>
+
+                                                {% else %}
+                                                    <h1><span
+                                                            class="badge badge-danger mt-4">{{ examoverview.1 }}</span>
+                                                    </h1>
+
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                <div class="row">
+                                    <div class="row pl-3">
+                                        <div class="col-4">
+                                            <h3
+                                                    class="stats-heading display-5 text-primary">
+                                                Exam Average</h3>
+                                        </div>
+                                        <div class="col-8">
+                                            <div>
+                                                <h1><span class="badge badge-primary mt-4">{{ examoverview.3 }}</span>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        var y0 = [], i = 0;
+
+
+        var trace1 = {
+            y:{{ dashboard_marks.exam_marks }},
+            type: 'box',
+            name: 'Exam'
+        };
+
+        var trace2 = {
+            y: {{ dashboard_marks.lab_marks }},
+            type: 'box',
+            name: 'Lab'
+        };
+
+
+        var trace3 = {
+            y: {{ dashboard_marks.asgn_marks }},
+            type: 'box',
+            name: 'Assignment'
+        };
+
+        var trace4 = {
+            y: {{ dashboard_marks.oth_marks }},
+            type: 'box',
+            name: 'Other'
+        };
+
+
+        var data = [trace1, trace2, trace3, trace4];
+
+        Plotly.newPlot('myDiv', data);
+    </script>
+
+    <script>
+        $("i").click(function () {
+            $("input[type='file']").trigger('click');
+        });
+
+        $('input[type="file"]').on('change', function () {
+            var val = $(this).val();
+            $(this).siblings('span').text(val);
+        })
+    </script>
+
+{% endblock %}

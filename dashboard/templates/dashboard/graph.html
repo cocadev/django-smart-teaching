@@ -1,0 +1,56 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>LMS</title>
+
+{% endblock %}
+
+{% block content %}
+    <form method="POST" accept-charset="utf-8" class="mt-4">{% csrf_token %}
+        <select name="quizid">
+            {% for quiz in quizzes %}
+                <option value="{{ quiz }}">{{ quiz }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    <div class="text-center mt-3">
+        <p class="display-4">Choose An Exam here</p>
+        <img src="{% static 'dashboard/images/34.jpg' %}" class="rounded-circle mt-2" alt="GRAPHS">
+    </div>
+
+
+{% endblock %}
+
+
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7",],
+                datasets: [{
+                    label: '',
+                    data: [12, 19, 3, 17, 28, 24, 7],
+                    backgroundColor: "rgba(153,255,51,0.9)"
+                }, {
+                    label: '',
+                    data: [30, 29, 5, 5, 20, 3, 10],
+                    backgroundColor: "rgba(255,153,0,0.9)"
+                }, {
+                    label: '',
+                    data: [45, 65, 15, 85, 20, 35, 75],
+                    backgroundColor: "rgba(221,123,24,0.9)"
+                }, {
+                    label: '',
+                    data: [60, 85, 56, 57, 25, 71, 30],
+                    backgroundColor: "rgba(153,240,0,0.9)"
+                }]
+            }
+        });
+    </script>
+
+{% endblock %}

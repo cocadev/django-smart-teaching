@@ -1,0 +1,172 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static "student_report/css/vendor.bundle.base.css" %}">
+    <link rel="stylesheet" href="{% static "student_report/css/vendor.bundle.addons.css" %}">
+    <link rel="stylesheet" href="{% static "student_report/css/style.css" %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="{% static "landing_page/css/one-page-wonder.css" %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static "landing_page/css/one-page-wonder.css" %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+    {% block head %}
+        {% load static %}
+    {% endblock %}
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img class="img-responsive" src="{% static "landing_page/images/LMS.svg" %}" alt="LMS" width="50"
+                 height="50" style="position:absolute;z-index:4;top:7%;left:6%;">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'landing_page:landing_page' %}">Home</a>
+                </li>
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'registration:register' %}">Sign Up</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'registration:login' %}">Log In</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <div class="btn-group" style="border:0px;background: #231f20;">
+                            <a class="nav-link text-light" href="{% url 'dashboard:dashboard' %}" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">Dashboard<i class="fas fa-caret-down"></i></a>
+                            <div class="dropdown-menu" style="background: #231f20;border:0px;color:white;">
+                                <a class="dropdown-item" href="{% url 'dashboard:dashboard' %}" style="color:white;">Dashboard</a>
+                                <a class="dropdown-item" href="{% url 'dashboard:needy_list' %}" style="color:white;">Needy
+                                    List</a>
+                                <a class="dropdown-item" href="{% url 'dashboard:list_of_students' %}"
+                                   style="color:white;">List of All Students</a>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'registration:logout' %}">Logout</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item nav-profile">
+                    <div class="nav-link">
+                        <div class="user-wrapper">
+
+                            <a href="#" style="text-decoration: none;">
+                                <img class="img-responsive rounded mx-5 mt-3 border"
+                                     src="{% static 'dashboard/images/st6.jpg' %}" alt="Professor Name" width="120"
+                                     height="120"/>
+                                <div class="page-header mx-4 my-4 text-center">
+                                    <h1 style="font-family: 'Montserrat', sans-serif;">{{ student }}</h1>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                </li>
+                 <li class="nav-item text-center">
+                    <span class="badge badge-primary mb-2">{{ label }}</span>
+                    <div class="w-75 mx-auto form-group">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.label }}<br/>
+                            <button type="submit" class="btn btn-success">ADD</button>
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'student_report:student_report' sid %}">
+                        <i class="menu-icon mdi mdi-television"></i>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'student_report:charts' sid %}">
+                        <i class="menu-icon mdi mdi-chart-line"></i>
+                        <span class="menu-title">Charts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'student_report:tables' sid %}">
+                        <i class="menu-icon mdi mdi-table"></i>
+                        <span class="menu-title">Tables</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                {% block content %}
+                    {% load static %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="py-5 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white small mb-2 footer_text">Copyright &copy; LMS</p>
+        <p class="m-0 text-center text-white small footer_text">Made With <i class="fa fa-heart mx-1"></i>work</p>
+    </div>
+
+    <a class="scrollup" style="display: none;">Scroll</a>
+    <!-- /.container -->
+</footer>
+
+
+<!-- plugins:js -->
+<script src="{% static "student_report/js/vendor.bundle.base.js" %}"></script>
+<script src="{% static "student_report/js/vendor.bundle.addons.js" %}"></script>
+<!-- endinject -->
+<!-- Plugin js for this page-->
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script src="{% static "student_report/js/misc.js" %}"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="{% static "student_report/js/dashboard.js" %}"></script>
+<!-- End custom js for this page-->
+<script src="{% static "student_report/js/chart.js" %}"></script>
+<script src="{% static 'student_report/js/Chart.bundle.js' %}"></script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

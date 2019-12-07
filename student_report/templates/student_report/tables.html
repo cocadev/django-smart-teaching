@@ -1,0 +1,85 @@
+{% extends 'student_report/base.html' %}
+
+{% block head %}
+    <title>Title</title>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">All Course Details</h4>
+              <p class="card-description">
+                Course Details
+{#                <code>.table</code>#}
+              </p>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Course Name</th>
+                      <th>Overall Marks</th>
+                      <th>Average Marks</th>
+                      <th>Course Rank</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                {% for student in course_table %}
+                    <tr>
+                      <td>{{  student.0 }}</td>
+                      <td>{{ student.1 }}</td>
+                        <td><label class="badge badge-warning">{{ student.2 }}</label></td>
+                      <td>
+                        <label>{{ student.3 }}</label>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">This Course</h4>
+              <p class="card-description">
+               {{ course }}
+{#                <code>.table-hover</code>#}
+              </p>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Exam Name</th>
+                        <th>Marks Obtained</th>
+                      <th>Average Marks</th>
+                      <th>Top Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for quiz in this_course %}
+                    <tr>
+                      <td>{{ quiz.0 }}</td>
+                        <td>{{  quiz.3 }}</td>
+
+                      <td>{{  quiz.1 }}</td>
+                      <td class="text-danger">{{ quiz.2 }}
+                        <i class="mdi mdi-arrow-down"></i>
+                      </td>
+
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+
+

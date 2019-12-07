@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+        <body>
+    <a href="{% url 'registration:edit_profile' %}">
+
+        <div style="min-height: 200px;">
+
+            Edit my profile
+    </div>
+
+        </a>
+<div>
+        {% for pl in professor_details %}
+
+
+    <div style="min-height: 200px;border:solid">
+        <h1> Professor Name : {{ pl.0 }}</h1>
+        <div>
+            <a href='{% url 'registration:professor' pl.4 %}'>        <img src="{{ pl.1.url }}" alt="" height="100px" width="100px;" style="float: left;"></a>
+        </div>
+        <span style="margin-left: 10px;">
+            <ul style="margin-left: 100px;">
+                <li> Course Taken :  {{ pl.2 }}</li>
+                <li>Professor Description : {{ pl.3 }} </li>
+            </ul>
+    </span>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+        </body>
+</html>

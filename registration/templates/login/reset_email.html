@@ -1,0 +1,33 @@
+{% extends 'MainBase.html' %}
+{% load static %}
+
+{% block head %}
+    <title>LMS</title>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row my-5 py-5">
+            <div class="col-6">
+                <img src="{% static "registration/images/forgot.png" %}" alt="Image" width="100%" height="110%"
+                     class="mx-auto">
+            </div>
+            <div class="col-6">
+                <form method="POST">
+                    <p class="display-3">Enter email to which link will be sent </p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                     <p style="color: orangered"> {{ message }}</p>
+                    <button type="submit" type="submit" class="btn btn-success">Send Email</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block script %}
+{% endblock %}

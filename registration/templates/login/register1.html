@@ -1,0 +1,64 @@
+{% extends 'MainBase.html' %}
+{% load static %}
+
+
+
+{% block head %}
+    <title>SignUp</title>
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{% static "registration/css/style.css" %}">
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="wrapper mt-5 pt-5">
+        <div class="inner">
+            <form class="form-style" method="POST">
+                {% csrf_token %}
+                <h3 class="heading">Signup</h3>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        <label>First Name :</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="form-wrapper">
+                        <label>Last Name :</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+                <div class="form-wrapper">
+                    <label for="">Username :</label>
+                    {{ form.username }}
+                    <p class="message" id='message'>{{ form.username.errors }}</p>
+                </div>
+                <div class="form-wrapper">
+                    <label>Email :</label>
+                    {{ form.email }}
+                    <p class="message" id='message'>{{ form.email.errors }}</p>
+                </div>
+                <div class="form-wrapper">
+                    <label>Password :</label>
+                    {{ form.password }}
+                </div>
+                <div class="form-wrapper">
+                    <label>Confirm Password :</label>
+                    {{ form.confirm_password }}
+                    <p class="message" id='message'>{{ form.confirm_password.errors }}</p>
+                </div>
+
+                <button>Signup</button>
+
+
+
+                <div class="row-3">
+                    <p>Alerady have an account ? <a style="color:blue;" href="{% url 'registration:login' %}">Login</a>
+                        instead</p>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

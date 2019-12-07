@@ -1,0 +1,201 @@
+html{
+    max-width:100%;
+}
+
+
+body{
+    background-color: white;
+    max-width:100%;
+}
+
+/* Navbar START */
+
+ #header{
+        transition: all 0.4s;
+    }
+      
+.bg-light{
+        background-color: #efefef!important;
+    }
+
+.navbar{
+    box-shadow: 0 0 5px 0;
+}
+
+.navbar-brand{
+    height:48px;
+    padding:2px 10px;
+}
+
+.nav-menu{
+    height:28px;
+}
+
+/* Navbar END */
+
+
+.hero-section{
+    background:url('')
+}
+
+.jumbotron{
+    padding:0.3rem;
+    z-index:1;
+    background-color: #f1f0f0;
+    box-shadow:2px 3px 3px 2px #afafaf;
+    transition: transform .5s;
+}
+
+
+
+
+
+.jumbotron:hover{
+    transform : scale(1.015) 
+}
+
+.needy-icon{
+    z-index:2;
+    position: relative;
+    margin-left:0;
+    margin-top:0;
+}
+
+.name-chip{
+    z-index:2;
+    margin:1rem; 
+    font-weight:bold;
+    width:90%;
+    display: inline-block;
+    
+}
+
+
+.student-image{
+    width:64px;
+    height:64px;
+    position: absolute;
+    z-index:3;
+    border-radius:45px;
+}
+
+.name-heading{
+    z-index:2;
+    padding-left:0px;
+    padding-top:12px;
+    padding-bottom:22px;
+    font-size:20px;
+    background-color: green;
+}
+
+
+
+.chip {
+    z-index:2;
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 0.75rem;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #19f55e;
+    box-shadow:4px 4px 6px 0px #afafaf;
+    transition:transform 0.2s;
+    transition:letter-spacing 0.3s;
+    
+
+}
+
+@media only screen and (min-width:430px){
+.chip:hover{
+    transform:scale(1.03);
+    letter-spacing:1px;
+    }
+}
+
+.chip img {
+    z-index:3;
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow:4px 6px 8px 0px #afafaf;
+}
+
+.jumbotron.large-jumbotron{
+    z-index:2;
+    width:80%!important; 
+    margin:3rem auto; 
+    padding:1.2rem;
+}
+
+.jumbotron.small-jumbotron{
+    box-shadow:2px 3px 3px 2px #afafaf;
+    z-index:2;
+    padding-left:0.3rem;
+}
+
+
+input[type=text] {
+    width: 60%;
+    border:2px blue solid;
+    border-radius:1rem;
+    outline:none;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    color: #afafaf;
+}
+
+
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:hover {
+    width: 78%;
+}
+
+.btn{
+    width:auto;
+    border-radius: 2rem;
+    font-size:0.8rem;
+    padding:0.5rem 0.5rem;
+    font-weight:bold;
+    box-shadow:1px 2px 3px 1px #afafaf;
+    transition-property: transform, letter-spacing, width;
+    transition-duration: .4s, .4s, .4s;
+   
+  
+}
+
+.btn:hover{
+    width:auto;
+    transform:scale(1.05);
+    letter-spacing:1px;
+}
+
+
+.fa-upload{
+    transition:transform 0.1s;
+}
+
+.fa-upload:hover{
+    transform:scale(1.05);
+}
+
+#setting:hover {
+    -webkit-animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+    from {
+            -webkit-transform: rotate(0deg);
+    }
+    to {
+            -webkit-transform: rotate(359deg);
+    }
+}
+
+.comment-section{
+   max-height:370px;
+   overflow:auto;
+}

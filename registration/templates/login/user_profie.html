@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load static %}
+<link href="{% static "registration/css/user_prof1.css" %}" rel="stylesheet" id="text/css">
+<link href="{% static "registration/css/user_prof2.css" %}" rel="stylesheet" type="text/css">
+</head>
+
+<div class="container emp-profile">
+            
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="{{ photo.url }}" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        {{ name }}
+                                    </h5>
+                                    <h6>
+                                       Professor @ IIIT Sri City
+                                    </h6>
+                                    <br><hr>
+                            <ul>
+                                <li>
+                                    About
+                                </li>
+                                
+                            </ul><hr>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+
+                            <p><b><strong>Descrption</strong></b></p>
+                            <a href="">{{ description }}</a><br/>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Id</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ userid }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ name }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ email }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Courses I am Teaching</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ coursename }}</p>
+                                            </div>
+                                        </div>
+                                <a href="{% url 'registration:edit_profile' %}">Edit Profile</a>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                      
+        </div>
+</html>

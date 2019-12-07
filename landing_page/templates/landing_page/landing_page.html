@@ -1,0 +1,135 @@
+{% extends 'MainBase.html' %}
+{% load static %}
+
+
+
+
+{% block head %}
+
+    <title>LMS</title>
+    <style>
+        .how {
+            background-image: url("{% static "landing_page/images/design.svg" %}");
+        }
+    </style>
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>
+    <div id="content">
+        <header class="masthead text-left text-white" data-rellax-speed="3">
+            <img class="hero-img rellax img-fluid" src="{% static "landing_page/images/hero.png" %}" alt="hero_image"
+                 data-rellax-speed="-3"/>
+            <img class="img-responsive img-fluid lms-heading ml-5 pl-5 rellax"
+                 src="{% static "landing_page/images/lph.svg" %}" alt="LMS" data-rellax-speed="12"/>
+            <div class="masthead-content mt-2">
+                <div class="container ">
+                    <h1 class="masthead-heading mb-0 rellax" data-rellax-speed="9">Manage Your Class</h1>
+                    <h2 class="masthead-subheading mb-0 rellax" data-rellax-speed="8">In A Better Way</h2>
+                    <a href="{% url 'registration:register' %}" class="btn btn-primary btn-xl rounded-pill mt-5 rellax"
+                       data-rellax-speed="7">Signup</a>
+                </div>
+            </div>
+
+            <div class="bg-circle-1 bg-circle rellax" data-rellax-speed="12"></div>
+            <div class="bg-circle-3 bg-circle rellax" data-rellax-speed="6"></div>
+
+        </header>
+
+        <main>
+            <section>
+                <div class="container">
+                    <img src="{% static "landing_page/images/divider.jpg" %}" alt="divider.svg" style="margin-top:2rem;"
+                         width="100%" height="260">
+                    <h3 class="centered display-4 banner-heading">Build For Every<br>Concerned Teacher</h3>
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 order-lg-2" data-rellax-speed="-4">
+                            <div class="p-5">
+                                <img class="img-fluid" src="{% static "landing_page/images/a_1.png" %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 order-lg-1" data-rellax-speed="4">
+                            <div class="p-5 how">
+                                <h3 class="display-4">Every Student Is Unique</h3>
+                                <p class="paraText ml-1">We believe that the society thrives on the diversity of talent.
+                                    Human talent is like some nautral resources, present by birth, buried deep inside;
+                                    we
+                                    need to create the conditions for it to develop. We use the teachers' experience
+                                    along
+                                    with computational power to deliver a learning experience like never before.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <img class="img-fluid" src="{% static "landing_page/images/a_2.png" %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5 how">
+                                <h2 class="display-4">An Excel Sheet Is All You Need</h2>
+                                <p class="paraText ml-1">Upload an excel sheet with the column format <strong>RollNumber,
+                                    Name, Exam-[name]-[max-marks], ..., Lab-[name]-[max-marks], ...,
+                                    Asgn-[name]-[max-marks], ..., Oth-[name]-[max-marks]</strong> and get valuable
+                                    information at your fingertips. As simple as that!!!!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 order-lg-2">
+                            <div class="p-5">
+                                <img class="img-fluid" src="{% static "landing_page/images/how.png" %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 order-lg-1">
+
+                            <div class="p-5 how">
+                                <h2 class="display-4">Marks Speak!</h2>
+                                <p class="paraText ml-1">Like Google, we believe in the power of data. For example, say
+                                    if
+                                    we take the width of distribution of Assignment marks (can be copied easily) and all
+                                    other marks combined, by a ratio, can we not, with certain probability say that this
+                                    is
+                                    an indicator of overall cheating prevailing?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+{% block script %}
+    <script src="{% static "landing_page/js/rellax.js" %}"></script>
+    <script>
+        let rallax = new Rellax('.rellax')
+    </script>
+{% endblock %}

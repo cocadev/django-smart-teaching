@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>BEA</title>
+		
+		<style type="text/css">
+			#output      { font-size: 90%; }
+			#explanation { font-size: 90%; }
+
+			.strength1   { background-color: #FF9999; } 
+			.strength2   { background-color: #FFCC66; } 
+			.strength3   { background-color: #FFFF99; } 
+			.strength4   { background-color: #CCFF99; } 
+			.strength5   { background-color: #99FF99; } 
+		</style>
+
+		<script type="text/javascript" src="./zxcvbn.js"></script>
+
+		<script type="text/javascript">
+			function objectDump(obj)
+			{
+				this.result = '';
+				this.indent = -2;
+
+				this.dumpLayer = function(obj)
+				{
+					this.indent += 2;
+
+					for (var i in obj)
+					{
+						if (typeof(obj[i]) == "object")
+						{
+						    this.result += "\n" +
+						    "              ".substring(0, this.indent) + i +
+						    ": " + "\n";
+						    this.dumpLayer(obj[i]);
+						}
+						else
+						{
+						    this.result +=
+						        "              ".substring(0, this.indent) + i +
+						        ": " + obj[i] + "\n";
+						}
+					}
+					this.indent -= 2;
+				}
+
+				this.dumpLayer(obj);
+				return this.result;
+			}
+
+
+			function checkPassword(pwd, toConsole)
+			{
+				var output = document.getElementById('output');
+
+				if (pwd != '')
+				{
+					var ret = zxcvbn(pwd);
+
+					// send result to console
+					if (toConsole)
+					{
+						/*
+						if (console.dir)
+						    console.dir(ret);
+						else
+						    if (console.log)
+						        console.log(ret);
+						*/
+
+						var explanation = document.getElementById('explanation');
+						explanation.innerHTML  = 'How the password was broken into parts:\n';
+						explanation.innerHTML += objectDump(ret.match_sequence);;
+					}
+
+				   
+					output.innerHTML = '';
+					output.innerHTML += '';
+					output.innerHTML += 'Strength score (1-5): '+(ret.score+1)+"\n";
+					output.innerHTML += '';
+					//output.innerHTML += 'Caculation time (msecs): '+(ret.calc_time)+"\n";
+					output.className = 'strength'+(ret.score+1);
+				}
+				else
+				{
+					output.innerHTML  = '';
+				}
+			}
+		</script>
+
+	</head>
+	
+	<body data-gr-c-s-loaded="true">
+
+    	<input type="text" name="password" id="password" onchange="checkPassword(document.getElementById(&#39;password&#39;).value, false); return true;" onkeypress="this.onchange();" oninput="this.onkeypress();" style="font-family:monospace; width: 250px;">
+    
+    <!-- onpaste defined -->
+    	
+		<pre id="output" class="strength1"></pre>
+		
+
+	</body>
+</html>

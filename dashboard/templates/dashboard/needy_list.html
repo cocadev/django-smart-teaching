@@ -1,0 +1,50 @@
+{% extends 'dashboard/base.html' %}
+
+{% block head %}
+    <title>Needy_List</title>
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="row justify-content-center">
+        {% for student in needyList %}
+            <div class="col-xs-12 col-md-6 col-lg-4 mx-auto">
+                <div class="card d-inline-block my-5">
+                    <a href="{% url 'student_report:student_report' student.1 %}" class="needy-card">
+                        <img class="card-img-top" src="http://placehold.it/250x150" alt="Card image cap">
+                        <div class="card-block p-2">
+                            <h4 class="card-title">{{ student.0 }}</h4>
+                            <p class="card-text">Roll No - {{ student.1 }}</p>
+                            <span class="badge badge-primary">{{ student.2 }}</span>
+                            <span class="badge badge-success">{{ student.3 }}</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            // executes when HTML-Document is loaded and DOM is ready
+            console.log("document is ready");
+
+
+            $(".card").hover(
+                function () {
+                    $(this).addClass('shadow-lg').css('cursor', 'pointer');
+                }, function () {
+                    $(this).removeClass('shadow-lg');
+                }
+            );
+
+// document ready
+        });
+
+    </script>
+{% endblock %}
+

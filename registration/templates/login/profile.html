@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>
+        Profile Page
+      </title>
+    </head>
+    <body>
+      <h1 style="color:blue">
+        Profile
+      </h1>
+      <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label>Description :</label>{{ form.professor_description }}
+          <br><br>
+          <label>Photo :</label>{{ form.professor_photo }}
+          <br><br>
+          <label>Course :</label>{{ form.professor_course }}
+          <span style="color: red">{{ form.professor_course.errors }}</span>
+          <br><br>
+          <button type="submit">save</button>
+      </form>
+    </body>
+  <html>

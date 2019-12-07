@@ -1,0 +1,196 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% block head %}
+    {% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" type="image/png" href="{% static "landing_page/images/LMS-i.png" %}"/>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static "dashboard/css/style.css" %}">
+    <link rel="stylesheet" href="{% static 'dashboard/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/css/design.css' %}">
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+</head>
+
+<body class="dashboard-body">
+{% if user.is_authenticated %}
+    <div class="wrapper">
+        <nav id="sidebar">
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="#">
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                    </a>
+                </li>
+
+                <li class="dashboard-nav-link">
+                    <a href="{% url 'registration:professor' %}">
+                        <img class="img-responsive rounded-circle mx-5 mt-3 border border-primary" src="{{ photo.url }}"
+                             alt="Professor Name" width="120" height="120"/>
+                        <div class="page-header mx-4 my-4 text-center">
+                            <h1>Hi, <br/>{{ username }}!</h1>
+                        </div>
+                    </a>
+                </li>
+                <hr/>
+                <li class=sidebar-navass="dashboard-nav-link">
+                    <a href="{% url 'dashboard:dashboard' %}">
+                        <i class="fas fa-graduation-cap fa-2x mr-2" data-target="classOverview"></i>
+                        <span class="font-weight-bold">Class Overview</span>
+                    </a>
+                </li>
+
+                <li class=sidebar-navass="dashboard-nav-link">
+                    <a href="{% url 'dashboard:needy_list' %}">
+                        <i class="fas fa-asterisk fa-2x mr-2" data-target="needyList"></i>
+                        <span class="font-weight-bold">Needy List</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-nav">
+                    <a href="{% url 'dashboard:list_of_students' %}" data-target="listStudents">
+                        <i class="fas fa-list-alt fa-2x mr-2"></i>
+                        <span class="font-weight-bold">List of All Students</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-nav">
+                    <a href="{% url 'dashboard:graph' %}" data-target="graph">
+                        <i class="fas fa-chart-bar fa-2x mr-2"></i>
+                        <span class="font-weight-bold">Visualisations</span>
+                    </a>
+                </li>
+            </ul>
+
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'landing_page:landing_page' %}">
+                        <img class="img-responsive" src="{% static "landing_page/images/LMS.svg" %}" alt="LMS"
+                             width="50"
+                             height="50" style="position:absolute;z-index:4;top:7%;left:6%;">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-light font-weight-bold"
+                                   href="{% url 'landing_page:landing_page' %}">HOME</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light font-weight-bold" href="{% url 'dashboard:dashboard' %}">DASHBOARD</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light font-weight-bold" href="{% url 'registration:logout' %}">LOGOUT</a>
+                            </li>
+
+                        </ul>
+
+
+                    </div>
+                </div>
+            </nav>
+
+            <button type="button" id="sidebarCollapse" class="btn">
+                <i class="fas fa-align-left"></i>
+            </button>
+            {% block content %}
+                <div id="container">
+                </div>
+            {% endblock %}
+        </div>
+
+    </div>
+
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white small mb-2 footer_text">Copyright &copy; LMS</p>
+            <p class="m-0 text-center text-white small footer_text">Made With <i class="fa fa-heart mx-1"></i>work</p>
+        </div>
+
+        <a class="scrollup" style="display: none;">Scroll</a>
+        <!-- /.container -->
+    </footer>
+
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+            crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Set trigger and container variables
+            var trigger = $('#sidebar ul li a'),
+                container = $('#content');
+
+            // Fire on click
+            trigger.on('click', function () {
+                // Set $this for re-use. Set target from data attribute
+                var $this = $(this),
+                    target = $this.data('target');
+
+                // Load target page into container
+                container.load(target + '.php');
+
+                // Stop normal link behavior
+                return false;
+            });
+        });
+    </script>
+
+
+    {% block script %}
+    {% endblock %}
+
+
+
+
+{% endif %}
+
+
+</body>
+</html>

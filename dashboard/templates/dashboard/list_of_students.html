@@ -1,0 +1,98 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Needy_List</title>
+    <link rel="stylesheet" href="{% static "dashboard/css/needyStyle.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div id="students">
+        <input class="search" placeholder="Search"/>
+        <button class="sort" data-sort="name">
+            Sort by name
+        </button>
+<br><br>
+
+        <ul class="list">
+            {% for student in allstudents %}
+
+                <li>
+                    <div class="row">
+                        <div class="col-2">
+                            <img class="rounded-circle mx-3" src="{% static 'dashboard/images/st6.jpg' %}"
+                                 alt="Person"
+                                 width="96"
+                                 height="96">
+                        </div>
+
+                        <div class="col-10">
+                            <a href="{% url 'student_report:student_report' student.0 %}">
+                                <div class="row chip my-2" style="width:100%;">
+                                    <div class="row">
+                                        <div class="col-3 mr-0">
+                                            <span class="name pt-2 pl-3 font-weight-bold" style="font-family: 'Montserrat', sans-serif;">{{ student.1 }}</span>
+                                        </div>
+
+                                        <div class="col-3 pt-2">
+                                            <span class="text-secondary"><h6>Roll No - {{ student.0 }}</h6></span>
+                                        </div>
+
+                                        <div class="col-6 pt-2">
+                                            <span class="text-right badge badge-primary ml-5 mr-2"><h6>{{ student.2 }}</h6></span>
+                                            <span class="text-right badge badge-warning mx-2"><h6>{{ student.3 }}</h6></span>
+                                            {% if student.4 != '-' %}
+                                            <span class="text-right badge badge-success mx-2"><h6>{{ student.4 }}</h6></span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <hr/>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="pagination justify-content-center">
+        {% if allstudents.has_previous %}
+            <a class="pagination-action" href="?page=1">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </a>
+            <a class="pagination-action" href="?page={{ allstudents.previous_page_number }}">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+
+        {% for num in allstudents.paginator.page_range %}
+
+            {% if allstudents.number == num %}
+                <span class="pagination-number pagination-current mx-2">{{ num }}</span>
+            {% elif num > allstudents.number|add:'-3' and num < allstudents.number|add:'3' %}
+                <a class="pagination-number mx-2" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if allstudents.has_next %}
+            <a class="pagination-action" href="?page={{ allstudents.next_page_number }}">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+            <a class="pagination-action" href="?page={{ allstudents.paginator.num_pages }}">
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static "dashboard/js/list.min.js" %}"></script>
+    <script>
+        var options = {
+            valueNames: ['name']
+        };
+
+        var userList = new List('students', options);
+    </script>
+{% endblock %}

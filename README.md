@@ -1,6 +1,6 @@
 ## :star: it if you :+1: it !
 
-# Ayudar
+# Ayudar Django Teaching
 In a typical class, it is usually observed that some active students are
 able to get teacher’s attention while those who are not able to express
 themselves well are not able to come under their teacher’s eyes.

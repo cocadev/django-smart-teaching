@@ -22,7 +22,7 @@ django-rest-framework==0.1.0
 djangorestframework==3.9.0
 entrypoints==0.2.3
 et-xmlfile==1.0.1
-httplib2==0.9.2
+httplib2==0.18.0
 idna==2.6
 ipykernel==5.1.0
 ipython==7.1.1

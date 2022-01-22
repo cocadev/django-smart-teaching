@@ -1,4 +1,4 @@
-## :star: it if you :+1: it !
+## :star: it if you :+2: it !
 
 # Ayudar Django Teaching
 In a typical class, it is usually observed that some active students are
